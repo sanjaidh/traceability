@@ -1,0 +1,424 @@
+/* ==========================================================================
+   PRECISION GRAPHITE: INDUSTRIAL SCADA & CMM DESIGN SYSTEM TOKENS
+   INDO-MIM Shop-5 Product & Pouch Traceability System
+   ========================================================================== */
+
+:root {
+  /* Typography */
+  --font-ui: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+
+  /* Spatial Grid & Geometry */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+
+  /* Single Signal Accent */
+  --accent-amber: #F2A900;
+  --accent-amber-subtle: rgba(242, 169, 0, 0.12);
+  --accent-amber-hover: #D99800;
+  --focus-ring: 2px solid #F2A900;
+
+  /* Colorblind-Safe Machine & System Status */
+  --status-running: #3FA37A;          /* ■ Filled Square */
+  --status-idle: #8A9099;             /* □ Hollow Square */
+  --status-setup: #4C8DD6;            /* ◆ Diamond */
+  --status-alarm: #D9473F;            /* ▲ Triangle */
+  --status-waiting: #E08A2E;          /* ◩ Split Square */
+  --status-offline: #5A5F66;          /* ✕ Cross */
+
+  /* Motion: 120-180ms ease-out for state changes only, no bounce */
+  --transition-fast: 120ms ease-out;
+  --transition-normal: 180ms ease-out;
+}
+
+/* ==========================================================================
+   THEME PALETTES
+   ========================================================================== */
+
+/* Dark Theme (Default) */
+[data-theme="dark"], :root:not([data-theme="light"]) {
+  --bg-app: #14161A;
+  --bg-panel: #1B1E23;
+  --bg-raised: #22262C;
+  --bg-hover: #262B32;
+  --border-color: #2A2E35;
+  --border-subtle: #21252B;
+
+  --text-primary: #E7E9EC;
+  --text-secondary: #9AA0A8;
+  --text-tertiary: #676D76;
+  --text-inverse: #14161A;
+
+  --map-bg: #111317;
+  --map-grid: #1D2128;
+  --map-dimension: #4A505A;
+  --map-zone-tint: rgba(255, 255, 255, 0.03);
+}
+
+/* Light Theme (For high-glare shop floor tablets / inspection rooms) */
+[data-theme="light"] {
+  --bg-app: #F4F3EF;
+  --bg-panel: #FFFFFF;
+  --bg-raised: #EAE8E2;
+  --bg-hover: #E2DFD7;
+  --border-color: #D9D7D0;
+  --border-subtle: #E6E4DD;
+
+  --text-primary: #1A1C1F;
+  --text-secondary: #5F646B;
+  --text-tertiary: #8C929B;
+  --text-inverse: #FFFFFF;
+
+  --map-bg: #F9F8F5;
+  --map-grid: #E8E6E0;
+  --map-dimension: #A6A49D;
+  --map-zone-tint: rgba(0, 0, 0, 0.02);
+}
+
+/* ==========================================================================
+   GLOBAL RESET & RESETS
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 1.45;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Strict tabular numbers rule for all numeric data */
+.tabular-nums, table, .metric-value, .kpi-number, [data-mono] {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   INDUSTRIAL COMPONENT UTILITIES
+   ========================================================================== */
+
+/* Flat solid panel (No blur, no shadow, tone-based elevation) */
+.scada-panel {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xs);
+}
+
+.scada-panel-raised {
+  background-color: var(--bg-raised);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xs);
+}
+
+/* Section Header Bar */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background-color: var(--bg-panel);
+  border-bottom: 1px solid var(--border-color);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* Compact Definition List */
+.def-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.def-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 13px;
+}
+
+.def-row:last-child {
+  border-bottom: none;
+}
+
+.def-label {
+  color: var(--text-secondary);
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.def-value {
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  text-align: right;
+}
+
+/* Continuous Hairline KPI Strip */
+.kpi-strip {
+  display: flex;
+  align-items: stretch;
+  background-color: var(--bg-panel);
+  border-bottom: 1px solid var(--border-color);
+  width: 100%;
+  overflow-x: auto;
+}
+
+.kpi-cell {
+  flex: 1;
+  min-width: 160px;
+  padding: 8px 14px;
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.kpi-cell:last-child {
+  border-right: none;
+}
+
+.kpi-cell:hover {
+  background-color: var(--bg-raised);
+}
+
+.kpi-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kpi-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.kpi-number {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  line-height: 1.1;
+}
+
+.kpi-subtext {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+}
+
+/* Industrial Data Tables */
+.scada-table-container {
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xs);
+  background-color: var(--bg-panel);
+}
+
+.scada-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13px;
+}
+
+.scada-table th {
+  background-color: var(--bg-raised);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  white-space: nowrap;
+}
+
+.scada-table td {
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.scada-table.compact td {
+  padding: 4px 10px;
+  font-size: 12px;
+}
+
+.scada-table tr:hover td {
+  background-color: var(--bg-hover);
+}
+
+/* Buttons (Flat, High Contrast, Amber Primary) */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: var(--accent-amber);
+  color: #14161A;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border: none;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-amber-hover);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: var(--bg-raised);
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-hover);
+}
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+}
+
+.btn-icon:hover {
+  background-color: var(--bg-raised);
+  color: var(--text-primary);
+}
+
+/* Status Indicators (Shape + Color) */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: var(--radius-xs);
+  border: 1px solid transparent;
+}
+
+.status-pill.running {
+  background-color: rgba(63, 163, 122, 0.12);
+  color: var(--status-running);
+  border-color: rgba(63, 163, 122, 0.3);
+}
+
+.status-pill.idle {
+  background-color: rgba(138, 144, 153, 0.12);
+  color: var(--status-idle);
+  border-color: rgba(138, 144, 153, 0.3);
+}
+
+.status-pill.setup {
+  background-color: rgba(76, 141, 214, 0.12);
+  color: var(--status-setup);
+  border-color: rgba(76, 141, 214, 0.3);
+}
+
+.status-pill.alarm {
+  background-color: rgba(217, 71, 63, 0.15);
+  color: var(--status-alarm);
+  border-color: rgba(217, 71, 63, 0.4);
+}
+
+.status-pill.waiting {
+  background-color: rgba(224, 138, 46, 0.12);
+  color: var(--status-waiting);
+  border-color: rgba(224, 138, 46, 0.3);
+}
+
+.status-pill.offline {
+  background-color: rgba(90, 95, 102, 0.12);
+  color: var(--status-offline);
+  border-color: rgba(90, 95, 102, 0.3);
+}
+
+/* Alarm pulse (Only for alarm condition) */
+@keyframes alarm-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.alarm-pulsing {
+  animation: alarm-pulse 1.6s infinite ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .alarm-pulsing {
+    animation: none;
+  }
+}
+
+/* Persistent Simulated Data Warning Badge */
+.sim-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background-color: var(--accent-amber-subtle);
+  border: 1px solid var(--accent-amber);
+  color: var(--accent-amber);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 2px 7px;
+  border-radius: var(--radius-xs);
+  text-transform: uppercase;
+}

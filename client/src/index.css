@@ -1,0 +1,73 @@
+/* ==========================================================================
+   PRECISION GRAPHITE: MASTER STYLESHEET
+   INDO-MIM Shop-5 Product & Pouch Traceability System
+   ========================================================================== */
+
+@import './theme/tokens.css';
+
+/* Baseline scrollbar styling for dense tables */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-app);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: var(--radius-xs);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+
+/* Eliminate focus outlines except custom signal amber ring */
+button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--accent-amber);
+  outline-offset: 1px;
+}
+
+/* Backward compatibility aliases mapping old class names to Precision Graphite tokens */
+.glass-panel {
+  background-color: var(--bg-panel) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-xs) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+.glass-card-interactive:hover {
+  background-color: var(--bg-raised) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* Status Badges */
+.badge-running {
+  background: rgba(63, 163, 122, 0.12);
+  color: var(--status-running);
+  border: 1px solid rgba(63, 163, 122, 0.3);
+}
+
+.badge-idle {
+  background: rgba(138, 144, 153, 0.12);
+  color: var(--status-idle);
+  border: 1px solid rgba(138, 144, 153, 0.3);
+}
+
+.badge-setup {
+  background: rgba(76, 141, 214, 0.12);
+  color: var(--status-setup);
+  border: 1px solid rgba(76, 141, 214, 0.3);
+}
+
+.badge-alarm {
+  background: rgba(217, 71, 63, 0.15);
+  color: var(--status-alarm);
+  border: 1px solid rgba(217, 71, 63, 0.4);
+}
